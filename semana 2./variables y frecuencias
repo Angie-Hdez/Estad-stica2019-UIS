@@ -1,0 +1,243 @@
+##Semana 3.Respuestas de ejercicios de Variables y frecuencias###
+
+## Ejercicio 1. ¿Que clase de objeto es BIC? ¿Qué clase de objeto es geospiza? use la función *str* 
+## para obtener información sobre la estructura.
+
+# installar el paquete "vegan"
+
+install.packages("vegan")
+
+##cargar el paquete vegan##
+
+library(vegan)
+
+## para ver el objeto BCI##
+
+data(BCI)
+BCI
+
+## para observar la clase del objeto BCI##
+
+class(BCI)
+
+## para obtener informacion sobre la estructura##
+
+str(BCI)
+
+##**Ejercicio2.¿Qué tipo de variable es tarsusL y qué clase?.Abra el objeto *tortues* y mire 
+##¿Qué tipo de variables tiene y qué clase son?, haga lo mismo con el objeto *mite.env* y
+##revise ¿Qué tipo de variable es *shurb* y qué clase es? Recuerde siempre usar help para 
+##saber de donde vienen los datos.
+
+## para ver la variable tarsusL que es de Geospiza, del paquete geiger##
+## 1. Descargar el paquete geiger y ape
+
+install.packages("geiger")
+install.packages("ape")
+
+library(geiger)
+library(ape)
+
+## 2. cargar Geospiza##
+
+data(geospiza)
+geospiza
+
+## 3. tipo de variable de tarsusL y clase 
+
+class(geospiza$geospiza.data[,2])
+
+## installar el paquete ade4 y cargarlo 
+
+install.packages("ade4")
+library(ade4)
+
+##abriendo el objeto tortues##
+
+data(tortues)
+tortues
+
+## mirando la estructura de tortues## 
+str(tortues)
+
+# se puede observar que tiene 4 variables:
+
+#'data.frame':	48 obs. of  4 variables:
+#  $ long: num  93 94 96 101 102 103 104 106 107 112 ...
+#$ larg: num  74 78 80 84 85 81 83 83 82 89 ...
+#$ haut: num  37 35 35 39 38 37 39 39 38 40 ...
+#$ sexe: Factor w/ 2 levels "M","F": 1 1 1 1 1 1 1 1 1 1 ...
+
+# 3 de ellas cuantitativas discretas (logitud,largo,ancho) de caparazon de tortugas y 
+#la última categórica nominal con los niveles "M", "F" (Masculino,Femenino)
+
+## clases de las variables ##
+
+class(tortues$long)
+class(tortues$larg)
+class(tortues$haut)
+class(tortues$sexe)
+
+## abriendo el objeto mite.env#
+
+# observando los datos de la variable se puede observar que es de tipo 
+
+data("mite.env")
+mite.env
+
+## ¿qué tipo de variable es shrub?#
+
+# observando los datos de la variable se determina que es de tipo categórica ordinal. 
+
+## para ver la clase de Shrub#
+
+class(mite.env$Shrub)
+
+#**Ejercicio 3.** usando el data.frame *tortues* calcule la proporción de hembras 
+#y machos de la muestra##
+
+M<-length(which(tortues$sexe=="M"))
+F <-length(which(tortues$sexe=="F"))
+
+M/F
+
+#Ejercicio4.usando el data.frame *tortues* calcule la proporción entre el ancho y el largo del 
+#caparazón, genere una tabla con la información de *tortues* y la nueva variable derivada.
+
+proporcion <- tortues$long/tortues$larg
+proporcion
+
+# generando la nueva tabla para tortues#
+nueva_tabla.tortues <- cbind.data.frame(tortues, proporcion)
+nueva_tabla.tortues  
+
+
+##¿Cuántas especies de *Corvus* fueron muestreadas en la región Paleártica-Africana? 
+#Use el data.frame del género *Corvus*. ¿Qué porcentaje de *Corvus* muestreados habitan 
+#zonas abiertas. 
+
+
+#cargando el data.frame corvus
+
+data(corvus)
+# para ver los primeros seis renglones#
+
+head(corvus)
+
+#especies de corvus que fueron muestreadas en la region paleártica-Africana
+
+length(which(corvus$phylog=="pale"))
+
+# para saber el porcentaje de corvus muestriados que habitan zonas abiertas#
+
+corvus_zonaabierta<- length(which(corvus$habitat=="open"))
+corvus_zonaabierta
+corvus_habitats <-length(corvus$habitat)
+corvus_habitats
+
+#ahora:
+por_corvus_zonaabierta<-((corvus_zonaabierta/corvus_habitats)*100)
+
+# multiplicamos por 100 para conocer el porcentaje del 100% de todos los corvus muestreados. 
+
+por_corvus_zonaabierta
+
+#Ejercicio.¿Cómo luce el gráfico de frecuencias para los tipos de hábitat del género *Corvus*?#
+
+#primero debemos conocer la frecuencia para cada tipo de habitat
+
+freq<-table(corvus$habitat)
+freq 
+corvus$habitat
+
+# Gráficar las frecuencias para cada tipo de habitat
+
+plot(freq, ylim = c(0,20), xlab = "tipo habitat")
+
+# durante la clase 2 de estadística se halló el max para de las especies de pajaros 
+#de atlas del packete ade4
+
+#Ejercicio. encuentre el máximo, así como lo hizo para el mínimo#
+
+# abrir atlas#
+
+data("atlas")
+atlas
+
+# sumar las ocurrencias de cada especie#
+
+ocurrencia<- apply(atlas$birds,2,sum)
+ocurrencia
+
+## sacar el max#
+
+max(ocurrencia)
+
+# para conocer la especie que presenta el máximo de ocurrencias#
+
+ocurrencia [which.max(apply(atlas$birds,2,sum))]
+
+
+#Ejercicio.Repita el ejercicio para las variables continuas de tamaño de pico y tamaño del ala 
+#en el género *Corvus*. Busque cómo cambiar colores, ejes y algunas propiedades que le permitan 
+#mejorar el diseño del histograma.
+
+# tamaño de ala y pico en el genero Corvus
+
+corvus$wing
+
+
+# no tendría sentido, debemos organizar en rangos
+
+table(corvus$wing)
+
+# Preguntar cuál es el mínimo 
+
+min(corvus$wing)
+
+
+# Preguntar cuál es el máximo
+
+max(corvus$wing)
+
+
+# La función rangos nos permite ver directamente el rango
+
+range(corvus$wing)
+
+#Dado que el máximo es 473 y el mínimo es 226, Podríamos decir que nuestra muestra estaría en un rango de 225.5 a 473.5
+
+#Podemos crear una lista de rangos a partir de esta información
+
+# genere las cajas
+
+bins <- seq(225.5,478.5, 10)
+
+# Agrupe los datos en las cajas
+
+datos<- cut(corvus$wing,bins)
+
+# genere la tabla de frecuencias
+freq_long<-table(datos)
+
+# Usamos transfrom para generar un data.frame de frecuencias
+transform(freq_long)
+
+# Podemos usarlo para adicionar más información a cada rango. Freq es una variable interna 
+# generada a partir de transform(freq_long)
+
+transform(freq_long, Relativ= prop.table(Freq), Acum= cumsum(Freq))
+
+
+##Para poder visualizar estos datos, nosotros podemos asignar el vector crudo a la función 
+##*hist* o utilizar los rangos generados anteriormente.
+
+
+
+# Histograma a partir de datos crudos
+
+hist(corvus$wing)
+
+# Histograma definiendo las cajas 
+
+hist(corvus$wing, breaks = bins, main = 'tamaño de ala en Corvus', col= "red")
