@@ -1,0 +1,126 @@
+## Semana_4.Ejercicos de descriptores y medidas 
+
+#Si la columna iris$Petal.Length tuviera valores 'NA', ¿Cómo podría eliminarlos antes de hacer
+#la estimación de la media?#
+
+## si la columna iris$Petal.Length tuviera valores 'NA'se debería utilizar la funcion:
+
+na.rm = T
+
+##donde T, es TRUE para indicar que hay valores 'NA' en la columna##
+
+## Estime la media aritmética de la altura, la longitud y el ancho del caparazón de las tortugas 
+##pintadas [data(tortues), paquete: ade4], use la función apply para obtener los estadísticos de 
+##cada medida en un mismo vector.##
+
+# 1. cargarndo el paquete: ade4##
+
+library(ade4)
+
+# cargar tortues#
+data("tortues")
+tortues
+
+## midiendo la media aritmetica para longitud, altura y ancho del caparazon del data "tortues"
+
+
+J<-apply(tortues[1:3],2,mean)
+
+J
+
+#Ejercicio. Genere una función propia que le permita encontrar la mediana, tal y como lo hizo#
+##con la media aritmética## 
+
+
+##Ejercicio. Genere una función propia que le permita calcular la moda##
+
+
+##Ejercicio. Después de generar la función del cálculo de moda, grafíquela sobre el histograma.
+
+
+##Ejercicio. Genere los cuantiles en intervalos de 0.5 Existen otras funciones que 
+#nos permiten generar cuartiles, incluyendo información de tendencias centrales.
+#Es decir, density() pero más resumido#
+
+## se carga iris##
+
+data("iris")
+
+## calculo de los cuantiles#
+
+quantile(setosa, probs= c(seq(0, 1, 0.5)))
+
+##Ejercicio: ¿Qué sucede si el número de columnas deseado no se especifica? Obtenga la mediana, 
+#la moda y los cuantiles para cada especie de iris y para cada variable morfométrica.
+
+# si por ejemplo se quiere calcular la media aritmetica y no se especifican las columnas,
+#el cálculo no se realizará y el comando devolverá un mensaje donde indique que hay argumentos logicos
+# que retornan NA. 
+
+aggregate(iris[,1:4], list(Especies = iris$Species), mean)
+aggregate(iris, list(Especies = iris$Species), mean)
+
+# mediana especies de iris 
+
+aggregate(iris[,1:4], list(Especies = iris$Species), median)
+
+## cuantiles para especies de iris#
+
+aggregate(iris[,1:4],list(Especies = iris$Species),quantile)
+
+summary(iris)
+## como sacar los otros cuantiles ?? ## 
+
+### voy a campo y mido dos poblaciones de pájaros#
+pop1 <-abs(rnorm(200,mean = 6,sd = 1))
+
+pop2 <-abs(rnorm(200,mean = 6,sd = 5))
+
+
+pops<-cbind(pop1,pop2)
+pops
+
+
+apply(pops,2,var)
+apply(pops,2,sd)
+
+#Ejercicio. grafique la distribución de frecuencias de cada población usando histograma y
+#densidad en el mismo gráfico. Adicione la media, la mediana y la moda.#
+
+plot(density(pops[,1]),xlim= c(2,10), ylim= c(0.0,0.4))
+
+hist(pop1,prob= TRUE,col= "antiquewhite",xlim= c(0,10),ylim = c(0.0,0.4), xlab = "longitud de la cola (cm)", main = "poblacion 1 de pajaros")
+
+# para hacer la curva de densidad de los datos (pop1)#
+
+lines(density(pop1),lwd= 2,col= "red")
+
+x <- summary(pop1)
+class(x)
+
+x[3]
+
+# graficar las medidas de tendecia central sobre el histograma de pop1#
+
+
+abline(v= x[3], col= "blue", lwd= 4 )
+
+abline(v= x[4], col= "yellow", lwd= 2, lty = 6)
+
+
+legend(x = "topright", c("Density plot", "Mean", "Median"),col = c("red", "blue", "yellow"),lwd = c(2, 4, 2))
+
+# curva de densidad de los datos (pop2)#
+
+b <-summary(pop2)
+hist(pop2, prob= T, col = "darkgrey", xlim= c(-5,25), ylim = c(0.00,0.10), xlab = "longitud de cola (cm)", main= "poblacion 2 de pajaros")
+
+lines(density(pop2), col="blue", lwd=2)
+
+# graficar las medidas de tendecia central sobre el histograma de pop2#
+
+abline(v= b[3], col= "darkgreen", lwd=2)
+abline(v= b[4], col= "deeppink", lwd=2)
+
+
+legend(x = "topright", c("Density plot", "Mean", "Median"),col = c("blue", "darkgreen", "deeppink"),lwd = c(2, 2, 2))
