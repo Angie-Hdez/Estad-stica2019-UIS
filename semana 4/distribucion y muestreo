@@ -28,7 +28,7 @@ plot(dpois(x = 0:50,lambda = 10))
 Numero_pez <- c(1:5000)
 
 # vector para la longitud de aleta en los peces del estanque#
-longitud <- abs(rnorm(5000,5,2))
+longitud <- abs(rnorm(5000,5,1))
 
 head(longitud)
 
@@ -50,11 +50,12 @@ N <- 5000
 k <- N/n
 
 # Elegir un número aleatorio desde 1 hata k (1er)
+
 sample(1:50,1)
 
 #Iniciamos en 1er y tomamos cada k hasta completar n
 
-muestra <- seq(16,5000,50)
+muestra <- seq(19,5000,50)
 muestra
 
 ## extraer las posiciones de la tabla#
