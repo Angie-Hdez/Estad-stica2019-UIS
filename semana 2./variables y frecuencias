@@ -138,7 +138,7 @@ corvus_habitats
 #ahora:
 por_corvus_zonaabierta<-((corvus_zonaabierta/corvus_habitats)*100)
 
-# multiplicamos por 100 para conocer el porcentaje del 100% de todos los corvus muestreados. 
+# multiplicamos por 100 para conocer el  porcentaje de corvus que habitan la zona abierta del 100% de todos los corvus muestreados. 
 
 por_corvus_zonaabierta
 
