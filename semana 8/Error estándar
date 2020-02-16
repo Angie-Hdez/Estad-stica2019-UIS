@@ -1,0 +1,206 @@
+# Semana8. Ejercicios de Error estádar
+
+# En clase se imaginó una población de 5000 tortugas de la especie *Caretta caretta*. Una nidada 
+#podría tener entre 20 a 50 huevos.
+
+# se generó una poblacion con 5000 tortugas, una media de 35 huevos por nidada con una desviación
+# del número de huevos por nidada de 3. 
+
+pop <- ceiling(rnorm(5000, mean = 35,sd = 1))
+
+# Tomar muestras en tres playas distintas
+m1 <- sample(x = pop,size = 10, replace = T)
+m2 <- sample(x = pop,size = 10, replace = T)
+m3 <- sample(x = pop,size = 10, replace = T)
+
+#para cada una de las muestras se calcularon la media, desviacion estádar y el error estándar
+
+mean(m1)
+sd(m1)
+sd(m1)/sqrt(length(m1))
+
+mean(m2)
+sd(m2)
+sd(m2)/sqrt(length(m2))
+
+mean(m3)
+sd(m3)
+sd(m3)/sqrt(length(m3))
+
+
+boxplot(cbind(m1,m2,m3))
+
+# Error estandar 
+
+sd(c(m1,m2,m3))/sqrt(length(c(m1,m2,m3)))
+
+#Ejer a: Aumente el valor de desviación estándar y evalúe cómo cambia el error estándar.
+
+# Aumentando la desviacion estándar de la población para mirar la relación con el error
+#estándar de las 3 muestras. sd = 3
+
+pop.a <- ceiling(rnorm(5000, mean = 35,sd = 3))
+
+# Tomar muestras en tres playas distintas
+m1a<- sample(x = pop,size = 10, replace = T)
+m2a<- sample(x = pop,size = 10, replace = T)
+m3a<- sample(x = pop,size = 10, replace = T)
+
+#para cada una de las muestras se calcularon la media, desviacion estádar y el error estándar
+
+mean(m1a)
+sd(m1a)
+sd(m1a)/sqrt(length(m1a))
+
+mean(m2a)
+sd(m2a)
+sd(m2a)/sqrt(length(m2a))
+
+mean(m3a)
+sd(m3a)
+sd(m3a)/sqrt(length(m3a))
+
+
+boxplot(cbind(m1a,m2a,m3a))
+
+# Error estandar 
+
+sd(c(m1a,m2a,m3a))/sqrt(length(c(m1a,m2a,m3a)))
+
+
+#Ejer b: Aumentar  el tamaño de la muestra y evalúe cómo cambia el error estándar.
+
+## para la poblacion
+
+pop <- ceiling(rnorm(5000, mean = 35,sd = 1))
+
+## Aumentando el tamaño de las muestras 
+
+m1b <- sample(x = pop,size = 80, replace = T)
+m2b<- sample(x = pop,size = 80, replace = T)
+m3b<- sample(x = pop,size = 80, replace = T)
+
+mean(m1b)
+sd(m1b)
+sd(m1b)/sqrt(length(m1b))
+
+mean(m2b)
+sd(m2b)
+sd(m2b)/sqrt(length(m2b))
+
+mean(m3b)
+sd(m3b)
+sd(m3b)/sqrt(length(m3b))
+
+
+boxplot(cbind(m1b,m2b,m3b))
+
+# Error estandar 
+
+sd(c(m1b,m2b,m3b))/sqrt(length(c(m1b,m2b,m3b)))
+
+# se debe aumentar el muestreo por lo menos 4 veces,  para que el error estándar disminuya
+# por lo menos a la mitad.
+
+
+
+# si se da  el caso donde la población no sigue una distribución normal.
+
+# generando la poblacion 
+
+pop <- c(ceiling(rnorm(3500, mean = 30,sd = 3)), ceiling(runif(500, 45,51)))
+
+
+myhist <- hist(pop)
+multiplier <- myhist$counts / myhist$density
+mydensity <- density(pop)
+mydensity$y <- mydensity$y * multiplier[1]
+
+plot(myhist)
+lines(mydensity)
+
+# Tomar muestras en tres playas distintas
+m1 <- sample(x = pop,size = 5, replace = T)
+m2 <- sample(x = pop,size = 5, replace = T)
+m3 <- sample(x = pop,size = 5, replace = T)
+
+# Calcular media, desviación y error
+mean(m1)
+sd(m1)
+sd(m1)/sqrt(length(m1))
+
+mean(m2)
+sd(m2)
+sd(m2)/sqrt(length(m2))
+
+mean(m3)
+sd(m3)
+sd(m3)/sqrt(length(m3))
+
+
+# Boxplot
+boxplot(cbind(m1,m2,m3))
+
+
+# Graficar las muestras tomadas
+muestras <- c(m1,m2,m3)
+
+myhist <- hist(muestras)
+multiplier <- myhist$counts / myhist$density
+mydensity <- density(muestras)
+mydensity$y <- mydensity$y * multiplier[1]
+
+plot(myhist)
+lines(mydensity)
+# Error estándar 
+
+sd(c(m1,m2,m3))/sqrt(length(c(m1,m2,m3)))
+
+
+#Ejer c:Cambie el tamaño de muestra y evalúe el valor de error estándar. 
+#¿Cuánto debería aumentar la muestra para que el error estándar disminuya a la mitad?
+
+# cambiando el tamaño de las muestras
+
+
+pop <- c(ceiling(rnorm(3500, mean = 30,sd = 3)), ceiling(runif(500, 45,51)))
+
+m1c <- sample(x = pop,size = 50, replace = T)
+m2c<- sample(x = pop,size = 50, replace = T)
+m3c<- sample(x = pop,size = 50, replace = T)
+
+# Calcular media, desviaciÃ³n y error
+mean(m1c)
+sd(m1c)
+sd(m1c)/sqrt(length(m1c))
+
+mean(m2c)
+sd(m2c)
+sd(m2c)/sqrt(length(m2c))
+
+mean(m3c)
+sd(m3c)
+sd(m3c)/sqrt(length(m3c))
+
+# error estándar 
+
+sd(c(m1c,m2c,m3c))/sqrt(length(c(m1c,m2c,m3c)))
+
+
+# graficando las muestras (c)
+
+# Graficar las muestras tomadas
+muestras <- c(m1c,m2c,m3c)
+
+myhist <- hist(muestras)
+multiplier <- myhist$counts / myhist$density
+mydensity <- density(muestras)
+mydensity$y <- mydensity$y * multiplier[1]
+
+plot(myhist)
+lines(mydensity)
+
+## Al observar los cambios tanto en la poblacion que sigue una distribucuion normal
+#y la que no lo hace podemos concluir para ambas que, aumentar el tamaño de cada muestra 
+# se traduce finalmente en obtener un valor de error estándar menor que cuando el tamaño 
+#de las muestras es pequeño. 
