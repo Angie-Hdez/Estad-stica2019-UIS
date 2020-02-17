@@ -53,12 +53,84 @@ k <- N/n
 
 sample(1:50,1)
 
-#Iniciamos en 1er y tomamos cada k hasta completar n
+#Iniciamos en 1er y tomamos cada k hasta completar n. 
 
-muestra <- seq(19,5000,50)
+# 1er= 47. Esot puede vaiar ya que la función "sample" cada vez que se utilice tomará
+# un número aleatorio de 1 a 50 
+
+muestra <- seq(47,5000,50)
 muestra
 
 ## extraer las posiciones de la tabla#
 
 medidas_aleta <-poblacion_peces[,2]
 medidas_aleta[muestra]
+
+# Hacer tabla para organizar datos de muestra
+
+numeros <- c(1:100)
+datospeces <- cbind(numeros, medidas_aleta [muestra])
+datospeces
+
+# para el cálculo de los estadísticos descriptivos
+
+#  media 
+mean(datospeces[,2])
+# mediana 
+median(datospeces[,2])
+
+
+# moda
+
+mode <- function(x) {
+  ux <- unique(x)
+  ux[which.max(tabulate(match(x, ux)))]
+}
+
+mode(datospeces[,2])
+
+# cuartiles 
+
+quantile(datospeces[,2], probs = c(0.25, 0.50, 0.75))
+
+# mínimo
+
+min(datospeces[,2])
+
+# máximo 
+max(datospeces[,2])
+
+# histograma 
+
+range(datospeces[,2])
+
+rango <- seq(2, 20, 2)
+
+freq <- table(datospeces[,2])
+freq
+freq[which.max(freq)]
+
+min(freq)
+max(freq)
+
+
+hist(datospeces[ ,2], border = "black", col = "red", probability = T, breaks = rango, xlab = "Longitud de aletas en (cm)", xlim= c(0.5, 10.2) ylab = "Densidad", main = "HISTOGRAMA MUESTREO PARA PECES")
+
+# graficar la densidad 
+
+lines(density(datospeces[,2]), col="black", lwd = 1)
+
+# Graficar la media yla mediana 
+
+abline(v = mean(datospeces[,2]),
+       col = "green",
+       lwd = 2)
+
+abline(v = median(datospeces[,2]),
+       col = "pink",
+       lwd = 2)
+
+legend(x = "topright", 
+       c("Density plot", "Mean", "Median"),
+       col = c("green", "royalblue", "red"),
+       lwd = c(2, 2, 2))
