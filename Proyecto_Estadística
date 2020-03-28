@@ -37,8 +37,6 @@ attach(liquen)
 qqPlot(liquen$área..cm2.[Sustrato=="saxicola "], main="SAXÍCOLA ", ylab= "Área (cm2)", xlab = "Cuantiles Norm")
 [1] 10 28
 
-![image](https://user-images.githubusercontent.com/55472011/77811794-e8a20d00-706a-11ea-9eeb-8f449b2ae464.png)
-
 
 
 qqPlot(liquen$área..cm2.[Sustrato=="corticicola"],main="CORTICÍCOLA", ylab= "Área (cm2)", xlab = "Cuantiles Norm")
